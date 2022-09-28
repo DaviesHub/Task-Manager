@@ -11,14 +11,26 @@ fhand = open("users.txt", "r")
 users = fhand.read()
 users = users.split() 
 for i in range(0, len(users), 2):
+    users[i] = users[i].lower()
     users_dic[users[i].replace(",", "")] = users[i+1]
 
 # Prompt user input
 user_name = input("Enter username: ")
 password = input("Enter password: ")
 
+user_name = user_name.lower()
+password = password.lower()
 
 while True:
+    if user_name in users_dic.keys() and password == users_dic[user_name]:
+        break
+    else:
+        print("\nUsername or password don't match. Please enter a valid username and password") # As security feature, they must not know which one (username or password) is wrong
+        user_name = input("Enter username: ")
+        password = input("Enter password: ")
+
+
+
     
         
 

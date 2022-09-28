@@ -1,3 +1,6 @@
+#=====IMPORT RELEVANT LIBRARIES===========
+from datetime import date
+
 #====LOGIN SECTION====
 
 # The usernames and passwords in the file are separated by a comma, so to validate usernames, commas are removed
@@ -5,7 +8,8 @@
 users_dic = {} 
 fhand = open("users.txt", "r")
 users = fhand.read()
-users = users.split() 
+users = users.split()
+fhand.close() 
 for i in range(0, len(users), 2):
     users[i] = users[i].lower()
     users_dic[users[i].replace(",", "")] = users[i+1]
@@ -37,19 +41,11 @@ while True:
 # : ''').lower()
 
     if menu == 'r':
-#         pass
-#         '''In this block you will write code to add a new user to the user.txt file
-#         - You can follow the following steps:
-#             - Request input of a new username
-#             - Request input of a new password
-#             - Request input of password confirmation.
-#             - Check if the new password and confirmed password are the same.
-#             - If they are the same, add them to the user.txt file,
-#             - Otherwise you present a relevant message.'''
+        # Code to register new users
         while True:
             new_username = input("Enter new username: ").lower()
-            if new_username in users_dic:
-                print("Username already exists. Enter another username")
+            if new_username in users_dic.keys():
+                print("Username already exists...")
             else:
                 break
 
@@ -60,11 +56,12 @@ while True:
                 print("Incorrect password.")
             else:
                 break
+        
+        fhand = open("user.txt", "a")
+        fhand.write(new_username + " " + new_password + "\n")
+        fhand.close()   
                 
-
-
-
-#     elif menu == 'a':
+    elif menu == 'a':
 #         pass
 #         '''In this block you will put code that will allow a user to add a new task to task.txt file
 #         - You can follow these steps:
@@ -76,6 +73,20 @@ while True:
 #             - Then get the current date.
 #             - Add the data to the file task.txt and
 #             - You must remember to include the 'No' to indicate if the task is complete.'''
+        # Code to add tasks
+        recepient = input("Enter the username of the person to whom the task is assigned: ").title()
+        task_title = input("Enter the title of the task: ").title()
+        task = input("Enter the task description below:\n")
+        due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
+        completion = "No" # Capitalize first letter
+
+        today = date.today()
+        today = today.strftime("%d %b %Y") # Formats date to specified format
+
+        fhand = open("task.txt", "a")
+        fhand.write(recepient + ", " + task_title + ", " + task + ", " + due_date + ", " + today + ", " + completion + "\n")
+        fhand.close()
+
 
 #     elif menu == 'va':
 #         pass

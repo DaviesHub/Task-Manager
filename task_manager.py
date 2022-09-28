@@ -1,9 +1,5 @@
 #====LOGIN SECTION====
-'''Here you will write code that will allow a user to login.
-    - Your code must read usernames and password from the user.txt file
-    - You can use a list or dictionary to store a list of usernames and passwords from the file.
-    - Use a while loop to validate your user name and password.
-'''
+
 # The usernames and passwords in the file are separated by a comma, so to validate usernames, commas are removed
 # The usernames and passwords are then stored in a dictionary
 users_dic = {} 
@@ -29,18 +25,10 @@ while True:
         user_name = input("Enter username: ")
         password = input("Enter password: ")
 
+#====INSIDE APP (after login)====
 
-
-    
-        
-
-    
-# print(dic)
-
-# while True:
-#     #presenting the menu to the user and 
-#     # making sure that the user input is coneverted to lower case.
-#     menu = input('''Select one of the following Options below:
+while True:
+    menu = input('''Select one of the following Options below:
 # r - Registering a user
 # a - Adding a task
 # va - View all tasks
@@ -48,7 +36,7 @@ while True:
 # e - Exit
 # : ''').lower()
 
-#     if menu == 'r':
+    if menu == 'r':
 #         pass
 #         '''In this block you will write code to add a new user to the user.txt file
 #         - You can follow the following steps:
@@ -58,6 +46,23 @@ while True:
 #             - Check if the new password and confirmed password are the same.
 #             - If they are the same, add them to the user.txt file,
 #             - Otherwise you present a relevant message.'''
+        while True:
+            new_username = input("Enter new username: ").lower()
+            if new_username in users_dic:
+                print("Username already exists. Enter another username")
+            else:
+                break
+
+        while True:
+            new_password = input("Enter password: ")
+            new_password2 = input("Confirm password: ")
+            if new_password != new_password2:
+                print("Incorrect password.")
+            else:
+                break
+                
+
+
 
 #     elif menu == 'a':
 #         pass

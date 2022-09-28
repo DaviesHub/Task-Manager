@@ -15,14 +15,14 @@ for i in range(0, len(users), 2):
     users_dic[users[i].replace(",", "")] = users[i+1]
 
 # Prompt user input
-user_name = input("Enter username: ")
+user_name = input("Enter username: ").lower
 password = input("Enter password: ")
 
-user_name = user_name.lower()
 password = password.lower()
 
 while True:
     if user_name in users_dic.keys() and password == users_dic[user_name]:
+        print("Login Successful!")
         break
     else:
         print("\nUsername or password don't match. Please enter a valid username and password") # As security feature, they must not know which one (username or password) is wrong
@@ -62,17 +62,6 @@ while True:
         fhand.close()   
                 
     elif menu == 'a':
-#         pass
-#         '''In this block you will put code that will allow a user to add a new task to task.txt file
-#         - You can follow these steps:
-#             - Prompt a user for the following: 
-#                 - A username of the person whom the task is assigned to,
-#                 - A title of a task,
-#                 - A description of the task and 
-#                 - the due date of the task.
-#             - Then get the current date.
-#             - Add the data to the file task.txt and
-#             - You must remember to include the 'No' to indicate if the task is complete.'''
         # Code to add tasks
         recepient = input("Enter the username of the person to whom the task is assigned: ").title()
         task_title = input("Enter the title of the task: ").title()
@@ -87,31 +76,26 @@ while True:
         fhand.write(recepient + ", " + task_title + ", " + task + ", " + due_date + ", " + today + ", " + completion + "\n")
         fhand.close()
 
+    elif menu == 'va':
+        # Code to read tasks from task file
+        with open("tasks.txt", "r") as f:
+            for line in f:
+                line = line.split(", ")
+                print("Task:\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
+                "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 
-#     elif menu == 'va':
-#         pass
-#         '''In this block you will put code so that the program will read the task from task.txt file and
-#          print to the console in the format of Output 2 presented in the L1T19 pdf file page 6
-#          You can do it in this way:
-#             - Read a line from the file.
-#             - Split that line where there is comma and space.
-#             - Then print the results in the format shown in the Output 2 in L1T19 pdf
-#             - It is much easier to read a file using a for loop.'''
+    elif menu == 'vm':
+        # Code to read tasks assigned to the user who is logged in
+        with open("tasks.txt", "r") as f:
+            for line in f:
+                if line[0] == user_name:
+                    line = line.split(", ")
+                    print("Task:\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
+                    "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 
-#     elif menu == 'vm':
-#         pass
-#         '''In this block you will put code the that will read the task from task.txt file and
-#          print to the console in the format of Output 2 presented in the L1T19 pdf
-#          You can do it in this way:
-#             - Read a line from the file
-#             - Split the line where there is comma and space.
-#             - Check if the username of the person logged in is the same as the username you have
-#             read from the file.
-#             - If they are the same you print the task in the format of output 2 shown in L1T19 pdf '''
+    elif menu == 'e':
+        print('\nGoodbye!!!')
+        exit()
 
-#     elif menu == 'e':
-#         print('Goodbye!!!')
-#         exit()
-
-#     else:
-#         print("You have made a wrong choice, Please Try again")
+    else:
+        print("\nYou have made a wrong choice, Please Try again")

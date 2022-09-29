@@ -6,7 +6,7 @@ from datetime import date
 # The usernames and passwords in the file are separated by a comma, so to validate usernames, commas are removed
 # The usernames and passwords are then stored in a dictionary
 users_dic = {} 
-fhand = open("users.txt", "r")
+fhand = open("user.txt", "r")
 users = fhand.read()
 users = users.split()
 fhand.close() 
@@ -15,20 +15,15 @@ for i in range(0, len(users), 2):
     users_dic[users[i].replace(",", "")] = users[i+1]
 
 # Prompt user input
-user_name = input("Enter username: ").lower
-password = input("Enter password: ")
-
-password = password.lower()
-
 while True:
+    user_name = input("Enter username: ").lower()
+    password = input("Enter password: ")
     if user_name in users_dic.keys() and password == users_dic[user_name]:
-        print("Login Successful!")
+        print("\nLogin Successful!")
         break
     else:
         print("\nUsername or password don't match. Please enter a valid username and password") # As security feature, they must not know which one (username or password) is wrong
-        user_name = input("Enter username: ")
-        password = input("Enter password: ")
-
+        
 #====INSIDE APP (after login)====
 
 while True:

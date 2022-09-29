@@ -16,6 +16,8 @@ for i in range(0, len(users), 2):
 
 # Prompt user input
 while True:
+    # For login, the new username is compared to keys in the username dictionary
+    # If there is a match, the password must correspond to the corresponding value of the key 
     user_name = input("Enter username: ").lower()
     password = input("Enter password: ")
     if user_name in users_dic.keys() and password == users_dic[user_name]:
@@ -28,6 +30,7 @@ while True:
 
 while True:
     # Code to ensure that only admin can register new users and view stats
+    # The additional features are only made available if the current user is admin
     if user_name == "admin":
         menu = input('''\nSelect one of the following Options below:
     # r - Registering a user
@@ -47,6 +50,7 @@ while True:
 
     if menu == "r" and user_name == "admin":
         # Code to register new users
+        # The new username is checked for singularity. If passed, the new username and password is written to the user file
         while True:
             new_username = input("Enter new username: ").lower()
             if new_username in users_dic.keys():
@@ -67,7 +71,7 @@ while True:
         fhand.close()   
                 
     elif menu == "a":
-        # Code to add tasks
+        # Code to add new tasks to tasks file
         recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
         task_title = input("Enter the title of the task: ")
         task = input("Enter a brief description of the task below, do not punctuate with commas:\n")
@@ -82,7 +86,7 @@ while True:
         fhand.close()
 
     elif menu == "va":
-        # Code to read tasks from task file
+        # Code to read tasks from task file and display in user-friendly format
         with open("tasks.txt", "r") as f:
             for line in f:
                 line = line.split(", ")
@@ -91,6 +95,7 @@ while True:
 
     elif menu == "vm":
         # Code to read tasks assigned to the user who is logged in
+        # The task's line is splitted into list. The first item (username) is compared to current username and the users tasks displayed
         with open("tasks.txt", "r") as f:
             for line in f:
                 line = line.split(", ")
@@ -99,14 +104,14 @@ while True:
                     "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 
     elif menu == "ds" and user_name == "admin":
-        # Code to display the total number of users to admin
+        # Code to count and display the total number of users to admin
         with open("user.txt", "r") as f:
             count_users = 0
             for line in f:
                 count_users += 1
             print(f"\nThe total number of users is {count_users}")
         
-        # Code to count the number of assigned tasks
+        # Code to count and display the number of assigned tasks to admin
         with open("tasks.txt", "r") as f:
             count_task = 0
             for line in f:

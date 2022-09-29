@@ -58,7 +58,7 @@ while True:
                 
     elif menu == 'a':
         # Code to add tasks
-        recepient = input("Enter the username of the person to whom the task is assigned: ")
+        recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
         task_title = input("Enter the title of the task: ")
         task = input("Enter a brief description of the task below, do not punctuate with commas:\n")
         due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")

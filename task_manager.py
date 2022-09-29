@@ -27,7 +27,7 @@ while True:
 #====INSIDE APP (after login)====
 
 while True:
-    menu = input('''Select one of the following Options below:
+    menu = input('''\nSelect one of the following Options below:
 # r - Registering a user
 # a - Adding a task
 # va - View all tasks
@@ -53,22 +53,22 @@ while True:
                 break
         
         fhand = open("user.txt", "a")
-        fhand.write(new_username + " " + new_password + "\n")
+        fhand.write(new_username + ", " + new_password + "\n")
         fhand.close()   
                 
     elif menu == 'a':
         # Code to add tasks
-        recepient = input("Enter the username of the person to whom the task is assigned: ").title()
-        task_title = input("Enter the title of the task: ").title()
-        task = input("Enter the task description below:\n")
+        recepient = input("Enter the username of the person to whom the task is assigned: ")
+        task_title = input("Enter the title of the task: ")
+        task = input("Enter a brief description of the task below, do not punctuate with commas:\n")
         due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
         completion = "No" # Capitalize first letter
 
         today = date.today()
         today = today.strftime("%d %b %Y") # Formats date to specified format
 
-        fhand = open("task.txt", "a")
-        fhand.write(recepient + ", " + task_title + ", " + task + ", " + due_date + ", " + today + ", " + completion + "\n")
+        fhand = open("tasks.txt", "a")
+        fhand.write(recepient + ", " + task_title + ", " + task + ", " + today + ", " + due_date + ", " + completion + "\n")
         fhand.close()
 
     elif menu == 'va':
@@ -83,8 +83,8 @@ while True:
         # Code to read tasks assigned to the user who is logged in
         with open("tasks.txt", "r") as f:
             for line in f:
-                if line[0] == user_name:
-                    line = line.split(", ")
+                line = line.split(", ")
+                if line[0].lower() == user_name:
                     print("Task:\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
                     "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 

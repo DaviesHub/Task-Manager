@@ -27,15 +27,25 @@ while True:
 #====INSIDE APP (after login)====
 
 while True:
-    menu = input('''\nSelect one of the following Options below:
-# r - Registering a user
-# a - Adding a task
-# va - View all tasks
-# vm - view my task
-# e - Exit
-# : ''').lower()
+    # Code to ensure that only admin can register new users and view stats
+    if user_name == "admin":
+        menu = input('''\nSelect one of the following Options below:
+    # r - Registering a user
+    # a - Adding a task
+    # va - View all tasks
+    # vm - view my task
+    # ds - display statistics
+    # e - Exit
+    # : ''').lower()
+    else:
+        menu = input('''\nSelect one of the following Options below:
+    # a - Adding a task
+    # va - View all tasks
+    # vm - view my task
+    # e - Exit
+    # : ''').lower()
 
-    if menu == 'r':
+    if menu == "r" and user_name == "admin":
         # Code to register new users
         while True:
             new_username = input("Enter new username: ").lower()
@@ -56,7 +66,7 @@ while True:
         fhand.write(new_username + ", " + new_password + "\n")
         fhand.close()   
                 
-    elif menu == 'a':
+    elif menu == "a":
         # Code to add tasks
         recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
         task_title = input("Enter the title of the task: ")
@@ -71,7 +81,7 @@ while True:
         fhand.write(recepient + ", " + task_title + ", " + task + ", " + today + ", " + due_date + ", " + completion + "\n")
         fhand.close()
 
-    elif menu == 'va':
+    elif menu == "va":
         # Code to read tasks from task file
         with open("tasks.txt", "r") as f:
             for line in f:
@@ -79,7 +89,7 @@ while True:
                 print("Task:\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
                 "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 
-    elif menu == 'vm':
+    elif menu == "vm":
         # Code to read tasks assigned to the user who is logged in
         with open("tasks.txt", "r") as f:
             for line in f:
@@ -88,7 +98,22 @@ while True:
                     print("Task:\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
                     "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 
-    elif menu == 'e':
+    elif menu == "ds" and user_name == "admin":
+        # Code to display the total number of users to admin
+        with open("user.txt", "r") as f:
+            count_users = 0
+            for line in f:
+                count_users += 1
+            print(f"\nThe total number of users is {count_users}")
+        
+        # Code to count the number of assigned tasks
+        with open("tasks.txt", "r") as f:
+            count_task = 0
+            for line in f:
+                count_task += 1
+            print(f"The total number of tasks is {count_task}")
+
+    elif menu == "e":
         print('\nGoodbye!!!')
         exit()
 

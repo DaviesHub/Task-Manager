@@ -54,8 +54,9 @@ def reg_user():
 
 def add_task():
     """This function adds new tasks to tasks file"""
-    task_num = 0
+    
     task_dic = {} # Dictionary to store each part of an individual task
+    task_num = 0
 
     recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
     task_title = input("Enter the title of the task: ")
@@ -97,6 +98,7 @@ def view_mine():
     # The task's line is splitted into list. The first item (username) is compared to current username and the users tasks displayed
     task_map = {} # Dictionary to hold tasks assigned to the user and a task number
     task_list = [] # Empty list to store user's tasks'
+    task_id = 0
 
     with open("tasks.txt", "r") as f:
         for line in f:
@@ -107,21 +109,27 @@ def view_mine():
                 
                 print(task_message)
 
-
     # Code to allow a user select a specific task or return to the main menu
     while True:
-        task_num = input("\nEnter the number of a task to view the task, or enter -1 to return to the main menu:\n")
-        if task_num in task_map.keys():
-            message = f"Task{task_num}: {task_map[task_num]}"
-            print("You have selected the following task:\n", message)
+        task_id = input("\nEnter the number of a task to view the task, or enter -1 to return to the main menu:\n")
+        for i in range(len(tasks)):
+            if task_id == str(tasks[i]["task_id"]) and user_name == tasks[i]["recepient"]:
+                message = "Task:" + tasks[i]["task_id"] + "\t\t" + tasks[i]["title"] + "\nAssigned to:\t" + tasks[i]["recepient"] + "\nDate assigned:\t" + tasks[i]["a_date"] +\
+                "\nDue date:\t" + tasks[i]["d_date"] + "\nTask complete:\t" + tasks[i]["completion"] + "Task description: " + tasks[i]["descr"] + "\n"
+
+                print("You have selected the following task:\n", message)
+                break
+
+            elif task_id == "-1":
+                pass # Code to return to main menu
+            else:
+                print("Invalid option")
+
+    # Code to allow a user edit a task
 
 
-            break
-        elif task_num == "-1":
-            pass # Code to return to main menu
-        else:
-            print("Invalid option")
-
+def edit_task():
+    """Function to allow a user edit a task"""
 
 def display_stats():
     """Function to count and display the number of users and tasks on the app"""

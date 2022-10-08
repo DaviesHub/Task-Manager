@@ -139,7 +139,7 @@ def edit_task():
         # : ''').lower()
 
         if action == "m":
-            if tasks[i]["completion"] != "Yes":
+            if tasks[i]["completion"].lower() != "yes":
                 tasks[i]["completion"] = "Yes"
                 print("Successful! Task is complete.")
             else:
@@ -170,6 +170,7 @@ def edit_task():
 def generate_report():
     """This function generates task and user reports to the admin"""
 
+    #---Generate task overview file---
     # count the number of tasks in task list
     num_tasks = len(tasks)
 
@@ -202,11 +203,56 @@ def generate_report():
 
     summary = "Total number of tasks: {}\nNumber of completed tasks: {}\n"\
     "Number of uncompleted tasks: {}\nNumber of overdue tasks: {}\n"\
-    "Percentage of incomplete tasks: {:.2f}%\nPercentage of overdue tasks: {:.2f}%\n".format(num_tasks,\
+    "Percentage of incomplete tasks: {:.2f}%\nPercentage of overdue tasks: {:.2f}%\n\n".format(num_tasks,\
     num_completed_tasks, num_uncompleted_tasks, num_overdue_tasks, percent_incomplete, percent_overdue)
 
     with open("task_overview.txt", "a") as fhand:
         fhand.write(summary)
+
+    #---Generate user overview file---
+    # count the number of users
+    with open("user.txt", "r") as f1:
+        num_users = 0
+        for line in f1:
+            num_users += 1
+    
+    num_tasks = len(tasks)
+
+    fhand =  open("tasks.txt", "r")
+    for user in users_dic.keys():
+        # Count the total number of tasks assigned to each user
+        count_user_task = 0
+        completed_tasks = 0
+        uncompleted_tasks = 0
+        count_overdue_tasks = 0
+        for line in fhand:
+            line = line.split(", ")
+            due_date2 = datetime.strptime(line[5], "%d %b %Y")
+            current_date2 = datetime.strptime(line[4], "%d %b %Y")
+            if line[1].lower() == user:
+                count_user_task += 1
+                if line[6].lower() == "yes":
+                    completed_tasks += 1 # Count the tasks completed
+                else:
+                    uncompleted_tasks += 1 # Count the uncompleted tasks
+                    if due_date2 < current_date2:
+                        count_overdue_tasks += 1
+
+        percent_user_task = (count_user_task / num_tasks) * 100
+        percent_completed_task = (completed_tasks / num_tasks) * 100
+        percent_uncompleted_task = (uncompleted_tasks / num_tasks) * 100
+        percent_overdue_task = (count_overdue_tasks / num_tasks) * 100
+
+        user_summary = "Total number of users: {}\nTotal number of tasks assigned: {}\n\
+        \033[1m====={}=====\033[0m\nTotal number of tasks: {}\n\
+        Percentage of tasks that are assigned to {}: {:.2f}%\n\
+        Percentage of tasks that have been completed: {:.2f}%\nPercentage of incomplete tasks: {:.2f}%\n\
+        Percentage of overdue tasks: {:.2f}%\n\n".format(num_users, num_tasks, user, count_user_task, user,\
+        percent_user_task, percent_completed_task, percent_uncompleted_task, percent_overdue_task)
+
+        with open("user_overview.txt", "a") as f:
+            f.write(user_summary)
+    fhand.close()
 
 
 def display_stats():

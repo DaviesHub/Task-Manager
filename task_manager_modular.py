@@ -1,5 +1,6 @@
 #=====IMPORT RELEVANT LIBRARIES===========
 from datetime import date
+from datetime import datetime
 
 #====LOGIN SECTION====
 
@@ -61,7 +62,7 @@ def add_task():
     recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
     task_title = input("Enter the title of the task: ")
     task = input("Enter a brief description of the task below, do not punctuate with commas:\n")
-    due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
+    due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ").title()
     completion = "No" # Capitalize first letter
 
     today = date.today()
@@ -164,7 +165,49 @@ def edit_task():
                         due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
                         tasks[i]["d_date"] = due_date
         break
-    
+
+
+def generate_report():
+    """This function generates task and user reports to the admin"""
+
+    # count the number of tasks in task list
+    num_tasks = len(tasks)
+
+    # count the number of completed tasks
+    num_completed_tasks = 0
+    for task in tasks:
+        if task["completion"] == "Yes":
+            num_completed_tasks += 1
+
+    # count the number of uncompleted tasks
+    num_uncompleted_tasks = 0
+    for task in tasks:
+        if task["completion"] == "No":
+            num_uncompleted_tasks += 1
+
+    # count the number of overdue tasks
+    # We convert and parse accordingly the due date and current date strings to datatime objects
+    num_overdue_tasks = 0
+    for task in tasks:     
+        due_date = datetime.strptime(task["d_date"], "%d %b %Y")
+        current_date = datetime.strptime(task["a_date"], "%d %b %Y")
+        if task["completion"] == "No" and due_date < current_date:
+            num_overdue_tasks += 1
+
+    # Calculate the percentage of incomplete tasks
+    percent_incomplete = (num_uncompleted_tasks / num_tasks) * 100
+
+    # Calculate the percentage of overdue tasks
+    percent_overdue = (num_overdue_tasks / num_tasks) * 100
+
+    summary = "Total number of tasks: {}\nNumber of completed tasks: {}\n"\
+    "Number of uncompleted tasks: {}\nNumber of overdue tasks: {}\n"\
+    "Percentage of incomplete tasks: {:.2f}%\nPercentage of overdue tasks: {:.2f}%\n".format(num_tasks,\
+    num_completed_tasks, num_uncompleted_tasks, num_overdue_tasks, percent_incomplete, percent_overdue)
+
+    with open("task_overview.txt", "a") as fhand:
+        fhand.write(summary)
+
 
 def display_stats():
     """Function to count and display the number of users and tasks on the app"""
@@ -195,6 +238,7 @@ while True:
     # a - Adding a task
     # va - View all tasks
     # vm - view my task
+    # gr - generate reports
     # ds - display statistics
     # e - Exit
     # : ''').lower()
@@ -217,6 +261,9 @@ while True:
 
     elif menu == "vm":
         view_mine()
+
+    elif menu == "gr" and user_name == "admin":
+        generate_report()
 
     elif menu == "ds" and user_name == "admin":
         display_stats()

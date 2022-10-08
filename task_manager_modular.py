@@ -50,7 +50,10 @@ def reg_user():
         
     fhand = open("user.txt", "a")
     fhand.write(new_username + ", " + new_password + "\n")
-    fhand.close()   
+    fhand.close()
+
+    # Store new user in users dictionary
+    users_dic[new_username] = new_password2
 
 
 def add_task():
@@ -319,4 +322,3 @@ while True:
 
     else:
         print("\nYou have made a wrong choice, Please Try again")
-

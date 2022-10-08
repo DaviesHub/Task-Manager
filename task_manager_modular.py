@@ -96,8 +96,6 @@ def view_all():
 def view_mine():
     """Function to read tasks assigned to the user who is logged in"""
     # The task's line is splitted into list. The first item (username) is compared to current username and the users tasks displayed
-    task_map = {} # Dictionary to hold tasks assigned to the user and a task number
-    task_list = [] # Empty list to store user's tasks'
     task_id = 0
 
     with open("tasks.txt", "r") as f:
@@ -112,16 +110,18 @@ def view_mine():
     # Code to allow a user select a specific task or return to the main menu
     while True:
         task_id = input("\nEnter the number of a task to view the task, or enter -1 to return to the main menu:\n")
+        
         for i in range(len(tasks)):
             if task_id == str(tasks[i]["task_id"]) and user_name == tasks[i]["recepient"]:
                 message = "Task:" + tasks[i]["task_id"] + "\t\t" + tasks[i]["title"] + "\nAssigned to:\t" + tasks[i]["recepient"] + "\nDate assigned:\t" + tasks[i]["a_date"] +\
                 "\nDue date:\t" + tasks[i]["d_date"] + "\nTask complete:\t" + tasks[i]["completion"] + "Task description: " + tasks[i]["descr"] + "\n"
-
                 print("You have selected the following task:\n", message)
+                edit_task()
                 break
 
-            elif task_id == "-1":
-                pass # Code to return to main menu
+            elif task_id == "-1": # Code to return to main menu
+                break
+
             else:
                 print("Invalid option")
 
@@ -130,6 +130,41 @@ def view_mine():
 
 def edit_task():
     """Function to allow a user edit a task"""
+
+    while True:
+        action = input('''\nSelect one of the options below:
+        # m - Mark a task as complete
+        # e - edit a task
+        # : ''').lower()
+
+        if action == "m":
+            if tasks[i]["completion"] != "Yes":
+                tasks[i]["completion"] = "Yes"
+                print("Successful! Task is complete.")
+            else:
+                print("The task is already complete.")
+
+        elif action == "e":
+            if tasks[i]["completion"] != "Yes":
+                print("A completed task cannot be edited. Edit an uncompleted task.")
+            else:
+                while True:
+                    edit_key = input("To edit task recepient, enter 1. To edit due date, enter 2: ")
+                    if edit_key == 1:
+                        while True:
+                            new_recepient = input("Enter the username of the new recepient: ").lower()
+                            if new_recepient not in users_dic.keys():
+                                print("The user does not exist")
+                            else:
+                                tasks[i]["recepient"] = new_recepient
+                                break
+                        break
+
+                    elif edit_key == 2:
+                        due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
+                        tasks[i]["d_date"] = due_date
+        break
+    
 
 def display_stats():
     """Function to count and display the number of users and tasks on the app"""

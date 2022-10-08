@@ -126,7 +126,6 @@ def view_mine():
             else:
                 print("Invalid option")
 
-    # Code to allow a user edit a task
 
 
 def edit_task():
@@ -218,6 +217,9 @@ def generate_report():
     
     num_tasks = len(tasks)
 
+    with open("user_overview.txt", "a") as f:
+        f.write("Total number of users: {num_users}\nTotal number of tasks assigned: {num_tasks}\n")
+
     fhand =  open("tasks.txt", "r")
     for user in users_dic.keys():
         # Count the total number of tasks assigned to each user
@@ -243,11 +245,10 @@ def generate_report():
         percent_uncompleted_task = (uncompleted_tasks / num_tasks) * 100
         percent_overdue_task = (count_overdue_tasks / num_tasks) * 100
 
-        user_summary = "Total number of users: {}\nTotal number of tasks assigned: {}\n\
-        \033[1m====={}=====\033[0m\nTotal number of tasks: {}\n\
+        user_summary = "033[1m====={}=====\033[0m\nTotal number of tasks: {}\n\
         Percentage of tasks that are assigned to {}: {:.2f}%\n\
         Percentage of tasks that have been completed: {:.2f}%\nPercentage of incomplete tasks: {:.2f}%\n\
-        Percentage of overdue tasks: {:.2f}%\n\n".format(num_users, num_tasks, user, count_user_task, user,\
+        Percentage of overdue tasks: {:.2f}%\n\n".format(user, count_user_task, user,\
         percent_user_task, percent_completed_task, percent_uncompleted_task, percent_overdue_task)
 
         with open("user_overview.txt", "a") as f:
@@ -256,21 +257,19 @@ def generate_report():
 
 
 def display_stats():
-    """Function to count and display the number of users and tasks on the app"""
+    """Function to display the number of users and tasks on the app"""
 
     # Code to count and display the total number of users to admin
-    with open("user.txt", "r") as f:
-        count_users = 0
-        for line in f:
-            count_users += 1
-        print(f"\nThe total number of users is {count_users}")
+    with open("user_overview.txt", "r") as f:
+        firstline = f.readline()
+        firstline = firstline.split(" ")
+        print(f"\nThe total number of users is {firstline[-1]}")
         
     # Code to count and display the number of assigned tasks to admin
-    with open("tasks.txt", "r") as f:
-        count_task = 0
-        for line in f:
-            count_task += 1
-        print(f"The total number of tasks is {count_task}")
+    with open("task_overview.txt", "r") as f:
+        firstline = f.readline()
+        firstline = firstline.split(" ")
+        print(f"The total number of tasks is {firstline[-1]}")
 
 
 #====INSIDE APP (after login)====

@@ -16,6 +16,26 @@ for i in range(0, len(users), 2):
     users[i] = users[i].lower()
     users_dic[users[i].replace(",", "")] = users[i+1]
 
+# When program is run, all tasks in the tasks file are stored in a list
+task_count = 0
+fhand = open("tasks.txt", "r")
+for line in fhand:
+    task_dic = {}
+    if len(line) > 1:
+        task_count += 1
+
+    line = line.split(", ")
+    task_dic["task_id"] = task_count
+    task_dic["recepient"] = line[0]
+    task_dic["title"] = line[1]
+    task_dic["descr"] = line[2]
+    task_dic["d_date"] = line[4]
+    task_dic["completion"] = "No"
+    task_dic["a_date"] = line[3]
+
+    tasks.append(task_dic)
+fhand.close()
+
 # Prompt user input
 while True:
     # For login, the new username is compared to keys in the username dictionary
@@ -58,9 +78,8 @@ def reg_user():
 
 def add_task():
     """This function adds new tasks to tasks file"""
-    
-    task_dic = {} # Dictionary to store each part of an individual task
-    task_num = 0
+
+    task_num = 1
 
     recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
     task_title = input("Enter the title of the task: ")
@@ -78,13 +97,14 @@ def add_task():
     task_dic["completion"] = completion
     task_dic["a_date"] = today
 
-    fhand = open("tasks.txt", "a")
+    fhand = open("tasks.txt", "r+")
     for line in fhand:
-        task_num += 1
+        if len(line) > 1:
+            task_num += 1
     task_dic["task_id"] = task_num
     tasks.append(task_dic) # Append each task dictionary in the list of tasks
 
-    fhand.write(task_num + ": " + recepient + ", " + task_title + ", " + task + ", " + today + ", " + due_date + ", " + completion + "\n")
+    fhand.write(recepient + ", " + task_title + ", " + task + ", " + today + ", " + due_date + ", " + completion + "\n")
     fhand.close()
 
 

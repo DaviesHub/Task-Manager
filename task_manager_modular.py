@@ -113,8 +113,8 @@ def view_all():
     with open("tasks.txt", "r") as f:
         for line in f:
             line = line.split(", ")
-            print("Task:" + line[0] + "\t\t" + line[2] + "\nAssigned to:\t" + line[1] + "\nDate assigned:\t" + line[4] +\
-            "\nDue date:\t" + line[5] + "\nTask complete:\t" + line[6] + "Task description: " + line[3] + "\n")
+            print("Task:" + "\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
+            "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
 
 
 def view_mine():

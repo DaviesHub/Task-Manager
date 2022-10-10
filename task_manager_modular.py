@@ -152,7 +152,6 @@ def view_mine():
             print("Invalid option")
 
 
-
 def edit_task(task, task_id):
     """Function to allow a user edit a task"""
 
@@ -247,13 +246,13 @@ def generate_report():
     # count the number of completed tasks
     num_completed_tasks = 0
     for task in tasks:
-        if task["completion"] == "Yes":
+        if task["completion"] == "Yes\n":
             num_completed_tasks += 1
 
     # count the number of uncompleted tasks
     num_uncompleted_tasks = 0
     for task in tasks:
-        if task["completion"] == "No":
+        if task["completion"] == "No\n":
             num_uncompleted_tasks += 1
 
     # count the number of overdue tasks
@@ -262,7 +261,7 @@ def generate_report():
     for task in tasks:     
         due_date = datetime.strptime(task["d_date"], "%d %b %Y")
         current_date = datetime.strptime(task["a_date"], "%d %b %Y")
-        if task["completion"] == "No" and due_date < current_date:
+        if task["completion"] == "No\n" and due_date < current_date:
             num_overdue_tasks += 1
 
     # Calculate the percentage of incomplete tasks
@@ -289,10 +288,11 @@ def generate_report():
     num_tasks = len(tasks)
 
     with open("user_overview.txt", "a") as f:
-        f.write("Total number of users: {num_users}\nTotal number of tasks assigned: {num_tasks}\n")
+        f.write(f"Total number of users: {num_users}\nTotal number of tasks assigned: {num_tasks}\n")
 
-    fhand =  open("tasks.txt", "r")
     for user in users_dic.keys():
+        fhand =  open("tasks.txt", "r")
+        print(user)
         # Count the total number of tasks assigned to each user
         count_user_task = 0
         completed_tasks = 0
@@ -300,26 +300,33 @@ def generate_report():
         count_overdue_tasks = 0
         for line in fhand:
             line = line.split(", ")
-            due_date2 = datetime.strptime(line[5], "%d %b %Y")
-            current_date2 = datetime.strptime(line[4], "%d %b %Y")
-            if line[1].lower() == user:
+            print(line[0])
+            due_date2 = datetime.strptime(line[4], "%d %b %Y")
+            current_date2 = datetime.strptime(line[3], "%d %b %Y")
+            if line[0].lower() == user:
                 count_user_task += 1
-                if line[6].lower() == "yes":
+                if line[5].lower() == "Yes\n":
                     completed_tasks += 1 # Count the tasks completed
                 else:
                     uncompleted_tasks += 1 # Count the uncompleted tasks
                     if due_date2 < current_date2:
                         count_overdue_tasks += 1
+        
+        if count_user_task == 0:
+            percent_user_task = 0
+            percent_completed_task = 0
+            percent_uncompleted_task = 0
+            percent_overdue_task = 0
 
-        percent_user_task = (count_user_task / num_tasks) * 100
-        percent_completed_task = (completed_tasks / num_tasks) * 100
-        percent_uncompleted_task = (uncompleted_tasks / num_tasks) * 100
-        percent_overdue_task = (count_overdue_tasks / num_tasks) * 100
+        else:
+            percent_user_task = (count_user_task / num_tasks) * 100
+            percent_completed_task = (completed_tasks / count_user_task) * 100
+            percent_uncompleted_task = (uncompleted_tasks / count_user_task) * 100
+            percent_overdue_task = (count_overdue_tasks / count_user_task) * 100
 
-        user_summary = "033[1m====={}=====\033[0m\nTotal number of tasks: {}\n\
-        Percentage of tasks that are assigned to {}: {:.2f}%\n\
-        Percentage of tasks that have been completed: {:.2f}%\nPercentage of incomplete tasks: {:.2f}%\n\
-        Percentage of overdue tasks: {:.2f}%\n\n".format(user, count_user_task, user,\
+        user_summary = "\n{}:\nTotal number of tasks: {}\nPercentage of tasks that are assigned to {}: {:.2f}%\n"\
+        "Percentage of tasks that have been completed: {:.2f}%\nPercentage of incomplete tasks: {:.2f}%\n"\
+        "Percentage of overdue tasks: {:.2f}%\n\n".format(user, count_user_task, user,\
         percent_user_task, percent_completed_task, percent_uncompleted_task, percent_overdue_task)
 
         with open("user_overview.txt", "a") as f:

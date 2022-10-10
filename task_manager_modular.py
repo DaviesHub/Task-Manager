@@ -292,7 +292,6 @@ def generate_report():
 
     for user in users_dic.keys():
         fhand =  open("tasks.txt", "r")
-        print(user)
         # Count the total number of tasks assigned to each user
         count_user_task = 0
         completed_tasks = 0
@@ -300,7 +299,6 @@ def generate_report():
         count_overdue_tasks = 0
         for line in fhand:
             line = line.split(", ")
-            print(line[0])
             due_date2 = datetime.strptime(line[4], "%d %b %Y")
             current_date2 = datetime.strptime(line[3], "%d %b %Y")
             if line[0].lower() == user:
@@ -337,11 +335,14 @@ def generate_report():
 def display_stats():
     """Function to display the number of users and tasks on the app"""
 
+    generate_report() # Generate report
+
     # Code to count and display the total number of users to admin
+    print("\n==Stats Display==")
     with open("user_overview.txt", "r") as f:
         firstline = f.readline()
         firstline = firstline.split(" ")
-        print(f"\nThe total number of users is {firstline[-1]}")
+        print(f"The total number of users is {firstline[-1]}")
         
     # Code to count and display the number of assigned tasks to admin
     with open("task_overview.txt", "r") as f:

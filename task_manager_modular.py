@@ -213,7 +213,7 @@ def edit_task(task, task_id):
                                 break
                         break
 
-                    elif edit_key == 2:
+                    elif edit_key == "2":
                         due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
                         task["d_date"] = due_date
 

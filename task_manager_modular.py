@@ -30,7 +30,7 @@ for line in fhand:
     task_dic["title"] = line[1]
     task_dic["descr"] = line[2]
     task_dic["d_date"] = line[4]
-    task_dic["completion"] = "No"
+    task_dic["completion"] = line[5]
     task_dic["a_date"] = line[3]
 
     tasks.append(task_dic)
@@ -160,11 +160,12 @@ def edit_task(task, task_id):
         action = input('''\nSelect one of the options below:
         # m - Mark a task as complete
         # e - edit a task
+        # -1 - back
         # : ''').lower()
 
         if action == "m":
-            if task["completion"].lower() != "yes":
-                task["completion"] = "Yes"
+            if task["completion"].lower() != "yes\n":
+                task["completion"] = "Yes\n"
 
                 # Update task in the file
                 file_h = open("tasks.txt", "r")
@@ -180,31 +181,58 @@ def edit_task(task, task_id):
                 print("Successful! Task is complete.")
                 break
             else:
-                print("The task is already complete.")
+                if task["completion"].lower() == "yes\n":
+                    print("The task is already complete.")
                 break
 
         elif action == "e":
-            if task["completion"] != "Yes":
+            if task["completion"] == "Yes\n":
                 print("A completed task cannot be edited. Edit an uncompleted task.")
             else:
                 while True:
                     edit_key = input("To edit task recepient, enter 1. To edit due date, enter 2: ")
-                    if edit_key == 1:
+                    if edit_key == "1":
                         while True:
                             new_recepient = input("Enter the username of the new recepient: ").lower()
                             if new_recepient not in users_dic.keys():
                                 print("The user does not exist")
                             else:
                                 task["recepient"] = new_recepient
+
+                                # Update recepient in the task file
+                                file_h = open("tasks.txt", "r")
+                                list_of_lines = file_h.readlines()
+                                new_line = list_of_lines[int(task_id) - 1].split(", ")
+                                new_line[0] = new_recepient
+                                new_line = ", ".join(new_line)
+                                list_of_lines[int(task_id) - 1] = new_line
+                                file_h = open("tasks.txt", "w")
+                                file_h.writelines(list_of_lines)
+                                file_h.close()
+
                                 break
                         break
 
                     elif edit_key == 2:
                         due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
                         task["d_date"] = due_date
+
+                        # Update duedate in the task file
+                        file_h = open("tasks.txt", "r")
+                        list_of_lines = file_h.readlines()
+                        new_line = list_of_lines[int(task_id) - 1].split(", ")
+                        new_line[4] = due_date
+                        new_line = ", ".join(new_line)
+                        list_of_lines[int(task_id) - 1] = new_line
+                        file_h = open("tasks.txt", "w")
+                        file_h.writelines(list_of_lines)
+                        file_h.close()
                         break
             break
         
+        elif action == "-1":
+            break
+
         else:
             print("Invalid option")
 

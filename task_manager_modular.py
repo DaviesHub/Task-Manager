@@ -113,45 +113,47 @@ def view_all():
     with open("tasks.txt", "r") as f:
         for line in f:
             line = line.split(", ")
-            print("Task:" + "\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
-            "\nDue date:\t" + line[4] + "\nTask complete:\t" + line[5] + "Task description: " + line[2] + "\n")
+            print("Task:\t\t" + line[1] + "\nAssigned to:\t" + line[0] + "\nDate assigned:\t" + line[3] +\
+            "\nDue date:\t" + line[4] + "\nTask complete?\t" + line[5] + "\nTask description: " + line[2] + "\n")
 
 
 def view_mine():
     """Function to read tasks assigned to the user who is logged in"""
-    # The task's line is splitted into list. The first item (username) is compared to current username and the users tasks displayed
-    task_id = 0
 
-    with open("tasks.txt", "r") as f:
-        for line in f:
-            line = line.split(", ")
-            if line[1].lower() == user_name:
-                task_message = "Task:" + line[0] + "\t\t" + line[2] + "\nAssigned to:\t" + line[1] + "\nDate assigned:\t" + line[4] +\
-                "\nDue date:\t" + line[5] + "\nTask complete:\t" + line[6] + "Task description: " + line[3] + "\n"
-                
-                print(task_message)
+    # As the task id is stored in the dictionary, The tasks pertaining to the user is searched for in the task dictionary
+    # This is done by comparing username values to the current username logged in 
+    for task in tasks:
+        if task["recepient"] == user_name:
+            print("Task:\t\t" + task["title"] + "\nID:\t\t" + str(task["task_id"]) + "\nAssigned to:\t" + task["recepient"] + "\nDate assigned:\t" + task["a_date"] +\
+            "\nDue date:\t" + task["d_date"] + "\nTask complete:\t" + task["completion"] + "\nTask description: " + task["descr"] + "\n")
 
     # Code to allow a user select a specific task or return to the main menu
+    temp_values = []
+    for i in range(len(tasks)):
+        temp_values.append(str(tasks[i]["task_id"]))
+
     while True:
-        task_id = input("\nEnter the number of a task to view the task, or enter -1 to return to the main menu:\n")
+        task_id = input("\nEnter the ID of a task to view the task, or enter -1 to return to the main menu:\n")
         
-        for i in range(len(tasks)):
-            if task_id == str(tasks[i]["task_id"]) and user_name == tasks[i]["recepient"]:
-                message = "Task:" + tasks[i]["task_id"] + "\t\t" + tasks[i]["title"] + "\nAssigned to:\t" + tasks[i]["recepient"] + "\nDate assigned:\t" + tasks[i]["a_date"] +\
-                "\nDue date:\t" + tasks[i]["d_date"] + "\nTask complete:\t" + tasks[i]["completion"] + "Task description: " + tasks[i]["descr"] + "\n"
-                print("You have selected the following task:\n", message)
-                edit_task()
-                break
+        if task_id in temp_values:
+            for task in tasks:
+                if (task["task_id"]) == int(task_id) and user_name == task["recepient"]:
+                    message = "Task:\t\t" + task["title"] + "\nID:\t\t" + str(task["task_id"]) + "\nAssigned to:\t" + task["recepient"] + "\nDate assigned:\t" + task["a_date"] +\
+                    "\nDue date:\t" + task["d_date"] + "\nTask complete:\t" + task["completion"] + "\nTask description: " + task["descr"] + "\n"
+                    print("\nYou have selected the following task:\n")
+                    print(message)
+                    edit_task(task, task_id)
+                    break
+        
+        elif task_id == "-1":
+            break
 
-            elif task_id == "-1": # Code to return to main menu
-                break
-
-            else:
-                print("Invalid option")
+        else:
+            print("Invalid option")
 
 
 
-def edit_task():
+def edit_task(task, task_id):
     """Function to allow a user edit a task"""
 
     while True:
@@ -161,14 +163,28 @@ def edit_task():
         # : ''').lower()
 
         if action == "m":
-            if tasks[i]["completion"].lower() != "yes":
-                tasks[i]["completion"] = "Yes"
+            if task["completion"].lower() != "yes":
+                task["completion"] = "Yes"
+
+                # Update task in the file
+                file_h = open("tasks.txt", "r")
+                list_of_lines = file_h.readlines()
+                new_line = list_of_lines[int(task_id) - 1].split(", ")
+                new_line[-1] = "Yes\n"
+                new_line = ", ".join(new_line)
+                list_of_lines[int(task_id) - 1] = new_line
+                file_h = open("tasks.txt", "w")
+                file_h.writelines(list_of_lines)
+                file_h.close()
+
                 print("Successful! Task is complete.")
+                break
             else:
                 print("The task is already complete.")
+                break
 
         elif action == "e":
-            if tasks[i]["completion"] != "Yes":
+            if task["completion"] != "Yes":
                 print("A completed task cannot be edited. Edit an uncompleted task.")
             else:
                 while True:
@@ -179,14 +195,18 @@ def edit_task():
                             if new_recepient not in users_dic.keys():
                                 print("The user does not exist")
                             else:
-                                tasks[i]["recepient"] = new_recepient
+                                task["recepient"] = new_recepient
                                 break
                         break
 
                     elif edit_key == 2:
                         due_date = input("Enter the task due date in the format DD MMM YYYY (e.g. 12 Mar 2020): ")
-                        tasks[i]["d_date"] = due_date
-        break
+                        task["d_date"] = due_date
+                        break
+            break
+        
+        else:
+            print("Invalid option")
 
 
 def generate_report():
@@ -305,16 +325,16 @@ while True:
     # r - Registering a user
     # a - Adding a task
     # va - View all tasks
-    # vm - view my task
-    # gr - generate reports
-    # ds - display statistics
+    # vm - View my task
+    # gr - Generate reports
+    # ds - Display statistics
     # e - Exit
     # : ''').lower()
     else:
         menu = input('''\nSelect one of the following Options below:
     # a - Adding a task
     # va - View all tasks
-    # vm - view my task
+    # vm - View my task
     # e - Exit
     # : ''').lower()
 

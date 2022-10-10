@@ -357,7 +357,6 @@ def display_stats():
         firstline = firstline.split(" ")
         print(f"The total number of tasks is {firstline[-1]}")
 
-
 #====INSIDE APP (after login)====
 
 while True:

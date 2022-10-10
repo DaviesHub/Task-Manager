@@ -16,11 +16,11 @@ for i in range(0, len(users), 2):
     users[i] = users[i].lower()
     users_dic[users[i].replace(",", "")] = users[i+1]
 
-# When program is run, all tasks in the tasks file are stored in a list
-task_count = 0
+# When program is run, all tasks in the tasks file are stored in separate dictionaries nested in the task list
+task_count = 0 # Task counter variable
 fhand = open("tasks.txt", "r")
 for line in fhand:
-    task_dic = {}
+    task_dic = {} # Empty dictionary for each task
     if len(line) > 1:
         task_count += 1
 
@@ -49,7 +49,6 @@ while True:
         print("\nUsername or password don't match. Please enter a valid username and password") # As security feature, they must not know which one (username or password) is wrong
 
 # Define functions for each feature
-
 def reg_user():
     """This function creates a new user and adds it to the registry (user.txt)"""
         # The new username is checked for singularity. If passed, the new username and password is written to the user file
@@ -67,7 +66,8 @@ def reg_user():
             print("Incorrect password.")
         else:
             break
-        
+
+    # Store new user in users file  
     fhand = open("user.txt", "a")
     fhand.write(new_username + ", " + new_password + "\n")
     fhand.close()
@@ -77,10 +77,9 @@ def reg_user():
 
 
 def add_task():
-    """This function adds new tasks to tasks file"""
+    """This function adds new tasks to tasks file and updates the list of tasks accordingly"""
 
-    task_num = 1
-
+    task_num = 1 # Variable to hold a number ID for each task starting from 1
     recepient = input("Enter the username of the person to whom the task is assigned: ").lower()
     task_title = input("Enter the title of the task: ")
     task = input("Enter a brief description of the task below, do not punctuate with commas:\n")
@@ -90,6 +89,7 @@ def add_task():
     today = date.today()
     today = today.strftime("%d %b %Y") # Formats date to specified format
 
+    # Add new task to dictionary
     task_dic["recepient"] = recepient
     task_dic["title"] = task_title
     task_dic["descr"] = task
@@ -102,14 +102,16 @@ def add_task():
         if len(line) > 1:
             task_num += 1
     task_dic["task_id"] = task_num
-    tasks.append(task_dic) # Append each task dictionary in the list of tasks
+    tasks.append(task_dic) 
 
+    # Add new task to file
     fhand.write(recepient + ", " + task_title + ", " + task + ", " + today + ", " + due_date + ", " + completion + "\n")
     fhand.close()
 
 
 def view_all():
     """This function reads tasks from the task file and displays it in a user-friendly format"""
+
     with open("tasks.txt", "r") as f:
         for line in f:
             line = line.split(", ")
@@ -118,9 +120,9 @@ def view_all():
 
 
 def view_mine():
-    """Function to read tasks assigned to the user who is logged in"""
+    """This Function reads tasks assigned to the user who is logged in"""
 
-    # As the task id is stored in the dictionary, The tasks pertaining to the user is searched for in the task dictionary
+    # As the task ID is stored in the dictionary, The tasks pertaining to the user is searched for in the task dictionary
     # This is done by comparing username values to the current username logged in 
     for task in tasks:
         if task["recepient"] == user_name:
@@ -128,13 +130,15 @@ def view_mine():
             "\nDue date:\t" + task["d_date"] + "\nTask complete:\t" + task["completion"] + "\nTask description: " + task["descr"] + "\n")
 
     # Code to allow a user select a specific task or return to the main menu
-    temp_values = []
+    temp_values = [] # Store all task IDs in the list for easier search later
     for i in range(len(tasks)):
         temp_values.append(str(tasks[i]["task_id"]))
 
     while True:
+        # Prompt user for input
         task_id = input("\nEnter the ID of a task to view the task, or enter -1 to return to the main menu:\n")
         
+        # If user inputs an ID, display the corresponding task
         if task_id in temp_values:
             for task in tasks:
                 if (task["task_id"]) == int(task_id) and user_name == task["recepient"]:
@@ -142,7 +146,7 @@ def view_mine():
                     "\nDue date:\t" + task["d_date"] + "\nTask complete:\t" + task["completion"] + "\nTask description: " + task["descr"] + "\n"
                     print("\nYou have selected the following task:\n")
                     print(message)
-                    edit_task(task, task_id)
+                    edit_task(task, task_id) # Call the edit task function which allows user choose to edit the selected task
                     break
         
         elif task_id == "-1":
@@ -162,11 +166,11 @@ def edit_task(task, task_id):
         # -1 - back
         # : ''').lower()
 
-        if action == "m":
+        if action == "m": # Change task's completion status in the task dictionary if user chooses m
             if task["completion"].lower() != "yes\n":
                 task["completion"] = "Yes\n"
 
-                # Update task in the file
+                # Update changes to a task in the task file
                 file_h = open("tasks.txt", "r")
                 list_of_lines = file_h.readlines()
                 new_line = list_of_lines[int(task_id) - 1].split(", ")
@@ -179,12 +183,14 @@ def edit_task(task, task_id):
 
                 print("Successful! Task is complete.")
                 break
+
             else:
                 if task["completion"].lower() == "yes\n":
-                    print("The task is already complete.")
+                    print("The task is already complete.") # No update if completion is already a Yes
                 break
 
         elif action == "e":
+            # To edit the selected task, values of the keys in the task dictionary are changed
             if task["completion"] == "Yes\n":
                 print("A completed task cannot be edited. Edit an uncompleted task.")
             else:
@@ -193,12 +199,12 @@ def edit_task(task, task_id):
                     if edit_key == "1":
                         while True:
                             new_recepient = input("Enter the username of the new recepient: ").lower()
-                            if new_recepient not in users_dic.keys():
+                            if new_recepient not in users_dic.keys(): # Recepient value is only changed if new recepient is a registered user
                                 print("The user does not exist")
                             else:
                                 task["recepient"] = new_recepient
 
-                                # Update recepient in the task file
+                                # Update changes to recepient in the task file
                                 file_h = open("tasks.txt", "r")
                                 list_of_lines = file_h.readlines()
                                 new_line = list_of_lines[int(task_id) - 1].split(", ")
@@ -217,6 +223,7 @@ def edit_task(task, task_id):
                         task["d_date"] = due_date
 
                         # Update duedate in the task file
+                        # The task's line is splitted into list and the old date is replaced with a new date
                         file_h = open("tasks.txt", "r")
                         list_of_lines = file_h.readlines()
                         new_line = list_of_lines[int(task_id) - 1].split(", ")
@@ -256,7 +263,7 @@ def generate_report():
             num_uncompleted_tasks += 1
 
     # count the number of overdue tasks
-    # We convert and parse accordingly the due date and current date strings to datatime objects
+    # We convert and parse accordingly the due date and current date strings to datetime objects
     num_overdue_tasks = 0
     for task in tasks:     
         due_date = datetime.strptime(task["d_date"], "%d %b %Y")

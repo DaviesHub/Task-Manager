@@ -21,7 +21,7 @@ This app allows users to:
 6. Generate task and user reports
 
 ## Installation
-As this is a command line application, there are no complex installation processes. Usrs can simple download the 'task-manager_modular.py' (see repo url below) and run its functions in a python enabled machine.
+As this is a command line application, there are no complex installation processes. Users can simply download the 'task-manager_modular.py'and run its functions in a python enabled machine.
 
 ## Usage
 Only the admin is allowed to add and remove users. The default admin username is 'admin', the default admin password is 'adm1n' (feel free to customize this). The admin also registers new users and tasks can be assigned from any account. The admin is also able to generate stats and reports about tasks and users.

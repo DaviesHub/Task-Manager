@@ -1,5 +1,13 @@
 # Task-Manager
 
+## Contents
+1. Description
+2. Features
+3. Installation
+4. Usage
+5. Package Requirements
+
+
 ## Description
 This task manager application is used to manage activities in a small business. It features user accounts with various fearutes depending on user role. Each of these features are coded into separate functions. Usernames and task details are stored in simple text files which is accessed by the program and stored in a temporary dictionary.
 

@@ -1,2 +1,8 @@
 admin, Register Users with taskManager.py, Use taskManager.py to add the usernames and passwords for all team members that will be using this program., 10 Oct 2019, 20 Oct 2019, No
 admin, Assign initial tasks, Use taskManager.py to assign each team member with appropriate tasks, 10 Oct 2019, 25 Oct 2019, No
+victor, Search for school, Use the internet to find affordable medical schools, 09 Oct 2022, 27 Nov 2022, No
+victor, complete task manager source code, do software testing and debugging this sunday on the source code, 09 Oct 2022, 08 Oct 2022, No
+sharon, mop the floor, wait for after brunch and mop the floor after the guys do the dishes, 09 Oct 2022, 20 Oct 2022, No
+davies, complete your msc, look at jennica's new data and generate new dataset usinf equations, 09 Oct 2022, 14 Dec 2022, Yes
+joyce, make dinner, after work check on the boys and make dinner for family, 10 Oct 2022, 20 Oct 2022, No
+joyce, curate worship music, use youtube and spotify to garner worship music for sunday prayer, 10 Oct 2022, 09 Oct 2022, No

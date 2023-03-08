@@ -1,0 +1,232 @@
+Total number of users: 7
+Total number of tasks assigned: 8
+
+admin:
+Total number of tasks: 2
+Percentage of tasks that are assigned to admin: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+davies:
+Total number of tasks: 1
+Percentage of tasks that are assigned to davies: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+ik:
+Total number of tasks: 0
+Percentage of tasks that are assigned to ik: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+victor:
+Total number of tasks: 2
+Percentage of tasks that are assigned to victor: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+
+sharon:
+Total number of tasks: 1
+Percentage of tasks that are assigned to sharon: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+prince:
+Total number of tasks: 0
+Percentage of tasks that are assigned to prince: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+joyce:
+Total number of tasks: 2
+Percentage of tasks that are assigned to joyce: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+Total number of users: 7
+Total number of tasks assigned: 8
+
+admin:
+Total number of tasks: 2
+Percentage of tasks that are assigned to admin: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+davies:
+Total number of tasks: 1
+Percentage of tasks that are assigned to davies: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+ik:
+Total number of tasks: 0
+Percentage of tasks that are assigned to ik: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+victor:
+Total number of tasks: 2
+Percentage of tasks that are assigned to victor: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+
+sharon:
+Total number of tasks: 1
+Percentage of tasks that are assigned to sharon: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+prince:
+Total number of tasks: 0
+Percentage of tasks that are assigned to prince: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+joyce:
+Total number of tasks: 2
+Percentage of tasks that are assigned to joyce: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+Total number of users: 7
+Total number of tasks assigned: 8
+
+admin:
+Total number of tasks: 2
+Percentage of tasks that are assigned to admin: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+davies:
+Total number of tasks: 1
+Percentage of tasks that are assigned to davies: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+ik:
+Total number of tasks: 0
+Percentage of tasks that are assigned to ik: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+victor:
+Total number of tasks: 2
+Percentage of tasks that are assigned to victor: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+
+sharon:
+Total number of tasks: 1
+Percentage of tasks that are assigned to sharon: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+prince:
+Total number of tasks: 0
+Percentage of tasks that are assigned to prince: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+joyce:
+Total number of tasks: 2
+Percentage of tasks that are assigned to joyce: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+Total number of users: 7
+Total number of tasks assigned: 8
+
+admin:
+Total number of tasks: 2
+Percentage of tasks that are assigned to admin: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+davies:
+Total number of tasks: 1
+Percentage of tasks that are assigned to davies: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+ik:
+Total number of tasks: 0
+Percentage of tasks that are assigned to ik: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+victor:
+Total number of tasks: 2
+Percentage of tasks that are assigned to victor: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
+
+sharon:
+Total number of tasks: 1
+Percentage of tasks that are assigned to sharon: 12.50%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 0.00%
+
+
+prince:
+Total number of tasks: 0
+Percentage of tasks that are assigned to prince: 0.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 0.00%
+Percentage of overdue tasks: 0.00%
+
+
+joyce:
+Total number of tasks: 2
+Percentage of tasks that are assigned to joyce: 25.00%
+Percentage of tasks that have been completed: 0.00%
+Percentage of incomplete tasks: 100.00%
+Percentage of overdue tasks: 50.00%
+
